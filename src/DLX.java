@@ -1,6 +1,8 @@
 //On  prendra  un  soin  particulier  en  ce  qui  concerne  la  modularite  du  code,  avec  une
 // separation claire entre l'algorithme DLX et son application au probleme du pavage.
 
+import java.util.Scanner;
+
 public class DLX {
 
 	/*l'algorithme DLX
@@ -16,12 +18,34 @@ public class DLX {
 	2D, de denombrer ses solutions et d'acher une solution, le cas echeant.
 	 */
 	
-	private static void readMatrix(){
+	private static Header readMatrix(){
+		//TODO Gabriel
+		Header h = new Header();
+		Scanner in = new Scanner(System.in);
+
+		int primColumns = in.nextInt();
+		int secColumns = in.nextInt();	
+		int lines = in.nextInt();
 		
+		
+		return h;
+	}
+	
+	private static void cover(Element c){
+		//TODO Francisco
+	}
+	
+	private static void uncover(Element c){
+		// TODO Francisco
+	}
+	
+	private static void search(int k){
+		// TODO Gabriel
 	}
 	
 	private static void EMC(){
-		
+	// TODO chamar search zero.
+		//Gabriel
 	}
 	
 	private static void pavage2d(){
@@ -29,6 +53,7 @@ public class DLX {
 	}
 	
 	public static void solve(String s){
+
 		if(s.equals("emc"))
 			EMC();
 		
