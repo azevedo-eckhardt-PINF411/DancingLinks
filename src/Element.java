@@ -18,4 +18,8 @@ public abstract class Element {
 		return down;
 	}
 
+	//TODO: outros getters
+
+	//TODO: seters 
+	
 }
