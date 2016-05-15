@@ -52,7 +52,7 @@ public class Main {
 				is = new FileInputStream(new File("tests/pavage/scott.txt"));
 				System.setIn(is);
 				DLX p3=new DLX();
-				p3.solve("emc");
+				p3.solve("pavage");
 				System.out.println("(Reponse attendue: ??)");
 				is.close();
 			} catch (FileNotFoundException e) {

@@ -28,7 +28,7 @@ public class DLX {
 		Olist= new LinkedList<Element>();
 	}
 	
-	private static Header readMatrix(){
+	private static Header readMatrix(){//tested
 		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
 		Scanner in = new Scanner(System.in);
 		
@@ -86,7 +86,6 @@ public class DLX {
 				if(line.charAt(c++)=='0')
 					element=0;
 				else element=1;
-				System.out.println(element);
 				if (element == 1) {
 					if(first){
 						//add to the column
@@ -95,6 +94,8 @@ public class DLX {
 						o0.setUp(temp.getDown());
 						o0.setLeft(o0);		//just in case there's only one 1 
 						o0.setRight(o0);	//we already make the list circular
+						o0.setDown(temp);
+						temp.setUp(o0);
 						first=false;
 						o=o0;
 					}
@@ -149,7 +150,7 @@ public class DLX {
 		c.getLeft().setRight(c);
 	}
 
-	private static void printColumn(Element c){
+	private static void printColumn(Element c){//tested
 		for (Element temp = c.getDown(); c!=temp;temp = temp.getDown())
 			System.out.print(((One)temp).getLine()+ " ");
 		System.out.println();
@@ -207,13 +208,9 @@ public class DLX {
 	}
 	
 	private void EMC(){
-	// TODO chamar search zero.
-		//Gabriel
-		h = readMatrix();
-		for(Element c=h.getRight(); c!=h; c=c.getRight())
-			printColumn(c);
-		//Olist = new LinkedList<Element>();
-		//search(0);
+		h = readMatrix(); //OK
+		Olist = new LinkedList<Element>();
+		search(0); //now testing
 	}
 	
 	private void pavage2d(){
