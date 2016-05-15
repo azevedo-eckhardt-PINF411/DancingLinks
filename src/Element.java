@@ -63,39 +63,6 @@ public abstract class Element {
 
 	public Element addDown(){}
 
-<<<<<<< HEAD
-	//seters
-	public void setRight(Element rightElement){
-		this.right = rightElement;
-	}
-	
-	public void setLeft(Element leftElement){
-		this.right = leftElement;
-	}
-	
-	public void setUp(Element upElement){
-		this.right = upElement;
-	}
-	
-	public void setDown(Element downElement){
-		this.right = downElement;
-	}
-	
-	//adders
-	public void addUp(Element e){}// TODO add the element to the list
-
-	public void addDown(Element e){}
-
-	public void addRight(Element e){}
-
-	public void addLeft(Element e){}
-	
-	public Element addUp(){}// TODO add a One to the list. return the element added
-
-	public Element addDown(){}
-
-=======
->>>>>>> origin/master
 	public Element addRight(){}
 
 	public Element addLeft(){}

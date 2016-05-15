@@ -7,20 +7,7 @@ public class Header extends Element {
 		size=s;
 		name=n;
 	}
-<<<<<<< HEAD
-	
-	public Header(){ super();}// ??? nao sei se precisa chamar a super
-	
-	public int getname(){return name;}
-=======
-
-<<<<<<< HEAD
-	//diverge commits
-
->>>>>>> d8445425beefe49b9238bbedca28feb66704f94d
-=======
-	public Header(){ super();}// ??? nao sei se precisa chamar a super
-								//resp: creio q sim
+	public Header(){ super();}
 	
 	public int getname(){return name;}
 	
@@ -31,6 +18,5 @@ public class Header extends Element {
 	public void decSize(){
 		size--;
 	}
->>>>>>> origin/master
 
 }

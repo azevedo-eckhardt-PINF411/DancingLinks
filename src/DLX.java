@@ -64,7 +64,7 @@ public class DLX {
 		
 		for(int i = 0; i < lines; i++){ ///
 			temp = h.getRight(); //initialize in column 0
-			int element;
+			int element = in.nextInt();
 			boolean first=true;
 			One o0 = new One();
 			One o = new One();
