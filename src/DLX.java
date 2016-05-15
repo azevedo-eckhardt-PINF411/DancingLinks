@@ -146,7 +146,17 @@ public class DLX {
 	private static void printSolution(){
 		
 	}
-	private Header choooseAColumn(){return h;} //////
+	private Header choooseAColumn(){
+		int s=Integer.MAX_VALUE;
+		Header c=null;
+		for(Header j=(Header)h.getRight(); j!=h;j=(Header)j.getRight()){
+			if(j.getSize()<s){
+				c=j;
+				s=j.getSize();
+			}
+		}
+		return c;
+	}
 	
 	private void search(int k){
 		// TODO Gabriel

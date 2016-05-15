@@ -11,6 +11,10 @@ public class Header extends Element {
 	
 	public int getname(){return name;}
 	
+	public int getSize(){
+		return size;
+	}
+	
 	public void incSize(){
 		size++;
 	}
