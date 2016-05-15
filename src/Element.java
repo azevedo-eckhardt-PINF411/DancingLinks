@@ -49,7 +49,9 @@ public abstract class Element {
 	public void setDown(Element downElement){
 		this.right = downElement;
 	}
+
 	
+	/* talvez depois, pra modularizar o odigo
 	//adders
 	public void addUp(Element e){}// TODO add the element to the list
 
@@ -65,6 +67,6 @@ public abstract class Element {
 
 	public Element addRight(){}
 
-	public Element addLeft(){}
+	public Element addLeft(){}*/
 	
 }

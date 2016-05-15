@@ -1,11 +1,10 @@
 //On  prendra  un  soin  particulier  en  ce  qui  concerne  la  modularite  du  code,  avec  une
 // separation claire entre l'algorithme DLX et son application au probleme du pavage.
 
+import java.util.LinkedList;
 import java.util.Scanner;
 
 public class DLX {
-
-	private static final Exception Error = null;
 
 	/*l'algorithme DLX
 	On  commencera  par  lire  soigneusement  l'article  de  Knuth.  La
@@ -20,6 +19,9 @@ public class DLX {
 	2D, de denombrer ses solutions et d'acher une solution, le cas echeant.
 	 */
 	
+	private static Header h = null;//acho que vai ficar mais simples se a gente tiver ele como variavel global...
+	private static LinkedList<Element> Olist =  null;
+	
 	private static Header readMatrix(){
 		//TODO Gabriel
 		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
@@ -30,8 +32,8 @@ public class DLX {
 		int lines = in.nextInt();
 		int totalColumns = primColumns + secColumns;//TODO print those
 		
-		Element temp = h;//TODO trocar pra "Header" e criar funcao no Header. ou achar solucao melhor;
-<<<<<<< HEAD
+		Element temp = h;
+/*	 	//HEAD
 		//Creating Header`s list
 		for(int i = 0; i < totalColumns; i++){
 			temp.setRight(new Header(temp,h,null,null,h,0,i));// the headers point their c`s to the root. invariant: the list is circular
@@ -51,10 +53,10 @@ public class DLX {
 
 				}
 				else if(element!=0) throw new Error;//TODO import java.Exception or error
-=======
+//*/
 		h.setRight(h);
 		h.setLeft(h);
-							///updated; Gabriel, please check (TODO)
+
 		//Creating Headers list
 		for(int i = 0; i < totalColumns; i++){
 			temp.setRight(new Header(temp,h,null,null,h,0,i));// the headers point their c`s to the root. invariant: the list is circular
@@ -64,10 +66,11 @@ public class DLX {
 		
 		for(int i = 0; i < lines; i++){ ///
 			temp = h.getRight(); //initialize in column 0
-			int element = in.nextInt();
+			int element;
 			boolean first=true;
-			One o0 = new One();
-			One o = new One();
+			One o0 = new One(i);
+			One o = new One(i);
+			
 			//enquanto nao acabou a linha.
 			while (temp!=h)
 			{
@@ -88,22 +91,19 @@ public class DLX {
 						//and vert circ lists
 						//keeping the first elmt of the line to update
 						//the horz circ list corresponding to current row
-						o.setRight(new One(o,o0,temp.getUp(),temp,temp));	//"just like" we did for the headers
+						o.setRight(new One(o,o0,temp.getUp(),temp,temp,i));	//"just like" we did for the headers
 						o=(One)o.getRight();
 						temp.getUp().setDown(o); 	//update "ends" 
 						temp.setUp(o);				//of vertical circ list
 						o0.setLeft(o);	//update end of horz circ list
 					}
-						
-						
 
 				}
-				else if(element!=0) throw Error;//TODO import java.Exception or error		--corrected by removing new
 				temp = temp.getRight();
->>>>>>> origin/master
 			}
 		}
 		
+		in.close();
 		return h;
 	}
 	
@@ -138,13 +138,48 @@ public class DLX {
 		c.getLeft().setRight(c);
 	}
 	
+	private static void printLine(){}
+	private static void printSolution(){
+		
+	}
+	private static Header choooseAColumn(){return h;}
+	
 	private static void search(int k){
 		// TODO Gabriel
+		Element Ok = null;
+		if(h.getRight().equals(h)) {
+			printSolution();
+			return;
+		}
+		
+		Header c = choooseAColumn();
+		cover(c);
+		
+		//go down in the column
+		for(Element r = c.getDown(); !r.equals(c); r = r.getDown()){
+			Ok = r;
+			for(Element j = r.getRight();!j.equals(r);j = j.getRight())
+				cover(j.getColumn());
+			search(k+1);
+			r = Ok;
+			c = (Header) r.getColumn();
+			for(Element j = r.getLeft();!j.equals(r);j = j.getLeft())
+				uncover(j.getColumn());
+		}
+		
+		uncover(c);
+		Olist.add(Ok);
 	}
 	
 	private static void EMC(){
 	// TODO chamar search zero.
 		//Gabriel
+		Header h = readMatrix();
+		Olist = new LinkedList<Element>();
+		search(0);
+		
+		h = null;// back to the initial point, where h points to null
+		Olist = null;
 	}
 	
 	private static void pavage2d(){
