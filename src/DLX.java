@@ -141,8 +141,18 @@ public class DLX {
 		c.getRight().setLeft(c);
 		c.getLeft().setRight(c);
 	}
+
+	private static void printColumn(Element c){
+		for (Element temp = c.getDown(); !temp.equals(c);temp = temp.getDown())
+			System.out.print(((One)temp).getLine()+ " ");
+		System.out.println();
+	}
 	
-	private static void printLine(){}
+	private static void printRow(Element c){
+		for (Element temp = c.getRight(); !temp.equals(c); temp = temp.getRight())
+			System.out.print(((One)temp).getLine()+ " ");
+		System.out.println();
+	}
 	private static void printSolution(){
 		
 	}
