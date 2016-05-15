@@ -21,7 +21,7 @@ public class Main {
 				in.close();*/
 				DLX p1=new DLX();
 				p1.solve("emc");
-				System.out.println("(Reponse attendue: 2)");
+				System.out.println("(Reponse attendue: 2 solutions)");
 				is.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

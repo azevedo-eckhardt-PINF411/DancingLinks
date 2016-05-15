@@ -49,6 +49,10 @@ public abstract class Element {
 	public void setDown(Element downElement){
 		this.down = downElement;
 	}
+	
+	public void setColumn(Element columnElement){
+		this.column=columnElement;
+	}
 
 	
 	/* talvez depois, pra modularizar o odigo

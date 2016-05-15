@@ -28,7 +28,7 @@ public class DLX {
 		Olist= new LinkedList<Element>();
 	}
 	
-	private static Header readMatrix(){//tested
+	private static Header readMatrix(){
 		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
 		Scanner in = new Scanner(System.in);
 		
@@ -61,13 +61,17 @@ public class DLX {
 //*/
 		h.setRight(h);
 		h.setLeft(h);
+		h.setUp(h);
+		h.setDown(h);
+		h.setColumn(h);
 
 		//Creating Headers list
 		for(int i = 0; i < totalColumns; i++){
-			temp.setRight(new Header(temp,h,null,null,h,0,i));// the headers point their c`s to the root. invariant: the list is circular
+			temp.setRight(new Header(temp,h,null,null,null,0,i));
 			temp = (Header)temp.getRight();
 			temp.setDown(temp);
 			temp.setUp(temp);
+			temp.setColumn(temp);
 			h.setLeft(temp); //update circular list: the root's left Elmt is always the latest added header
 		}
 				
@@ -91,11 +95,13 @@ public class DLX {
 						//add to the column
 						//and then to the line
 						temp.getUp().setDown(o0);
-						o0.setUp(temp.getDown());
+						o0.setUp(temp.getUp());
 						o0.setLeft(o0);		//just in case there's only one 1 
 						o0.setRight(o0);	//we already make the list circular
 						o0.setDown(temp);
+						o0.setColumn(temp);
 						temp.setUp(o0);
+						temp.incSize();
 						first=false;
 						o=o0;
 					}
@@ -108,10 +114,12 @@ public class DLX {
 						o=(One)o.getRight();
 						temp.getUp().setDown(o); 	//update "ends" 
 						temp.setUp(o);				//of vertical circ list
+						temp.incSize();
 						o0.setLeft(o);	//update end of horz circ list
 					}
-
 				}
+				//else if(element!=0) throw new Error;//TODO import java.Exception or error
+
 				temp = (Header)temp.getRight();
 			}
 		}
@@ -123,8 +131,8 @@ public class DLX {
 	private static void cover(Element c){
 		// c must be a header element
 		//remove c-column from header list
-		c.getLeft().setRight(c.right);
-		c.getRight().setLeft(c.left);
+		c.getLeft().setRight(c.getRight());
+		c.getRight().setLeft(c.getLeft());
 		
 		for(Element i=c.getDown(); i!=c; i=i.getDown()){ //remove row i
 			for(Element j=i.getRight();j!=i; j=j.getRight()){
@@ -157,12 +165,14 @@ public class DLX {
 	}
 	
 	private static void printRow(Element r){
+		System.out.print(((Header)(r.getColumn())).getname()+ " ");
 		for (Element temp = r.getRight(); !temp.equals(r); temp = temp.getRight())
 			System.out.print(((Header)(temp.getColumn())).getname()+ " ");
 		System.out.println();
 	}
 	
 	private void printSolution(){
+		System.out.println("Found a solution!"); //added for testing
 		ListIterator<Element> listIterator = Olist.listIterator();
         while (listIterator.hasNext()) {
         	printRow(listIterator.next());
@@ -181,7 +191,6 @@ public class DLX {
 	}
 	
 	private void search(int k){
-		// TODO Gabriel
 		Element Ok = null;
 		if(h.getRight().equals(h)) {
 			printSolution();
@@ -194,17 +203,17 @@ public class DLX {
 		//go down in the column
 		for(Element r = c.getDown(); !r.equals(c); r = r.getDown()){
 			Ok = r;
+			Olist.add(r);
 			for(Element j = r.getRight();!j.equals(r);j = j.getRight())
 				cover(j.getColumn());
 			search(k+1);
+			Olist.pollLast();
 			r = Ok;
 			c = (Header) r.getColumn();
 			for(Element j = r.getLeft();!j.equals(r);j = j.getLeft())
 				uncover(j.getColumn());
 		}
-		
 		uncover(c);
-		Olist.add(Ok);
 	}
 	
 	private void EMC(){
