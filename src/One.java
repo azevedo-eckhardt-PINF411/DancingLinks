@@ -5,4 +5,8 @@ public class One extends Element{
 		super(l, r, u, d, c);
 	}
 
+	public One() {
+		super();
+	}
+
 }
