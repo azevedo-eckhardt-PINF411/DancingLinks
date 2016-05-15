@@ -7,8 +7,9 @@ public class Header extends Element {
 		size=s;
 		name=n;
 	}
-
-	//diverge commits
-
+	
+	public Header(){ super();}// ??? nao sei se precisa chamar a super
+	
+	public int getname(){return name;}
 
 }

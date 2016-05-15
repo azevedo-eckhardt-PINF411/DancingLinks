@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class DLX {
 
+	private static final Exception Error = null;
+
 	/*l'algorithme DLX
 	On  commencera  par  lire  soigneusement  l'article  de  Knuth.  La
 	realisation de l'algorithme DLX devra permettre de parcourir toutes les solutions
@@ -20,13 +22,36 @@ public class DLX {
 	
 	private static Header readMatrix(){
 		//TODO Gabriel
-		Header h = new Header();
+		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
 		Scanner in = new Scanner(System.in);
 
 		int primColumns = in.nextInt();
 		int secColumns = in.nextInt();	
 		int lines = in.nextInt();
+		int totalColumns = primColumns + secColumns;//TODO print those
 		
+		Element temp = h;//TODO trocar pra "Header" e criar funcao no Header. ou achar solucao melhor;
+		//Creating Header`s list
+		for(int i = 0; i < totalColumns; i++){
+			temp.setRight(new Header(temp,h,null,null,h,0,i));// the headers point their c`s to the root. invariant: the list is circular
+			temp = temp.getRight();
+		}
+		
+		for(int i = 0; i < lines; i++){
+			temp = h;
+			Element tempLineHeader = new Header();
+			//enquanto nao acabou a linha.
+			while (!temp.getRight().equals(h))//TODO ou entao comparar os nomes
+			{
+				temp = temp.getRight();// acho que tem coisa errada aqui...
+				int element = in.nextInt();
+				if (element == 1) {
+					tempLineHeader.addLeft(temp.addUp());
+
+				}
+				else if(element!=0) throw new Error;//TODO import java.Exception or error
+			}
+		}
 		
 		return h;
 	}
