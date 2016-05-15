@@ -7,7 +7,9 @@ public class Header extends Element {
 		size=s;
 		name=n;
 	}
-
-
+	
+	public Header(){ super();}// ??? nao sei se precisa chamar a super
+	
+	public int getname(){return name;}
 
 }
