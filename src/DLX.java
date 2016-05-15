@@ -138,11 +138,23 @@ public class DLX {
 		c.getLeft().setRight(c);
 	}
 	
-	private static void printLine(){}
-	private static void printSolution(){
+	private static void printLine(Element r){
+		for( Element temp = r; !temp.getRight().equals(r); temp = temp.getRight()){
+			System.out.print(temp.getColumn().getName()+ " ");
+		}
 		
 	}
-	private static Header choooseAColumn(){return h;}
+	private static void printSolution(){
+
+		
+	}
+
+	public void printMatrix(){
+		
+	}
+	
+	private static Element choooseAColumn(){return h.getRight();}// TODO change name to Header (make it without creating conflicts)
+																 // TODO Improve the function (minimaze branch factor)
 	
 	private static void search(int k){
 		// TODO Gabriel
@@ -152,7 +164,7 @@ public class DLX {
 			return;
 		}
 		
-		Header c = choooseAColumn();
+		Header c = (Header) choooseAColumn();
 		cover(c);
 		
 		//go down in the column
@@ -174,7 +186,7 @@ public class DLX {
 	private static void EMC(){
 	// TODO chamar search zero.
 		//Gabriel
-		Header h = readMatrix();
+		h = readMatrix();
 		Olist = new LinkedList<Element>();
 		search(0);
 		
