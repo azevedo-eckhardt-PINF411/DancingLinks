@@ -19,7 +19,8 @@ public class Main {
 				Scanner in = new Scanner(System.in);
 				System.out.println(in.nextInt()+", "+in.nextInt());
 				in.close();*/
-				DLX.solve("emc");
+				DLX p1=new DLX();
+				p1.solve("emc");
 				System.out.println("(Reponse attendue: 2)");
 				is.close();
 			} catch (FileNotFoundException e) {
@@ -34,7 +35,8 @@ public class Main {
 			try{
 				is = new FileInputStream(new File("tests/emc/knuth.txt"));
 				System.setIn(is);
-				DLX.solve("emc");
+				DLX p2 = new DLX();
+				p2.solve("emc");
 				System.out.println("(Reponse attendue: ?)");
 				is.close();
 			} catch (FileNotFoundException e) {
@@ -49,7 +51,8 @@ public class Main {
 			try{
 				is = new FileInputStream(new File("tests/pavage/scott.txt"));
 				System.setIn(is);
-				DLX.solve("emc");
+				DLX p3=new DLX();
+				p3.solve("emc");
 				System.out.println("(Reponse attendue: ??)");
 				is.close();
 			} catch (FileNotFoundException e) {
@@ -63,7 +66,8 @@ public class Main {
 		
 		else{
 			assert(args[1].equals("emc")||args[1].equals("pavage"));
-			DLX.solve(args[1]);
+			DLX problem= new DLX();
+			problem.solve(args[1]);
 		}
 	}
 

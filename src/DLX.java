@@ -28,7 +28,6 @@ public class DLX {
 	}
 	
 	private static Header readMatrix(){
-		//TODO Gabriel
 		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
 		Scanner in = new Scanner(System.in);
 
@@ -66,6 +65,8 @@ public class DLX {
 		for(int i = 0; i < totalColumns; i++){
 			temp.setRight(new Header(temp,h,null,null,h,0,i));// the headers point their c`s to the root. invariant: the list is circular
 			temp = temp.getRight();
+			temp.setDown(temp);
+			temp.setUp(temp);
 			h.setLeft(temp); //update circular list: the root's left Elmt is always the latest added header
 		}
 		
@@ -80,6 +81,8 @@ public class DLX {
 			while (temp!=h)
 			{
 				element = in.nextInt();
+				System.out.println(element);
+
 				if (element == 1) {
 					if(first){
 						//add to the column
@@ -199,8 +202,10 @@ public class DLX {
 	// TODO chamar search zero.
 		//Gabriel
 		h = readMatrix();
-		Olist = new LinkedList<Element>();
-		search(0);
+		for(Element c=h.getRight(); c!=h; c=c.getRight())
+			printColumn(c);
+		//Olist = new LinkedList<Element>();
+		//search(0);
 	}
 	
 	private void pavage2d(){
