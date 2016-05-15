@@ -31,13 +31,13 @@ public class DLX {
 	private static Header readMatrix(){
 		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
 		Scanner in = new Scanner(System.in);
-
+		
 		int primColumns = in.nextInt();
 		int secColumns = in.nextInt();	
 		int lines = in.nextInt();
 		int totalColumns = primColumns + secColumns;//TODO print those
 		
-		Element temp = h;
+		Header temp = h;
 /*	 	//HEAD
 		//Creating Header`s list
 		for(int i = 0; i < totalColumns; i++){
@@ -65,25 +65,28 @@ public class DLX {
 		//Creating Headers list
 		for(int i = 0; i < totalColumns; i++){
 			temp.setRight(new Header(temp,h,null,null,h,0,i));// the headers point their c`s to the root. invariant: the list is circular
-			temp = temp.getRight();
+			temp = (Header)temp.getRight();
 			temp.setDown(temp);
 			temp.setUp(temp);
 			h.setLeft(temp); //update circular list: the root's left Elmt is always the latest added header
 		}
-		
+				
 		for(int i = 0; i < lines; i++){ ///
-			temp = h.getRight(); //initialize in column 0
+			temp = (Header)h.getRight(); //initialize in column 0
+			String line = in.next();
 			int element;
 			boolean first=true;
-			One o0 = new One(i);
-			One o = new One(i);
-			
+			Element o0 = new One(i);
+			Element o = new One(i);
+			int c=0;
+
 			//enquanto nao acabou a linha.
 			while (temp!=h)
 			{
-				element = in.nextInt();
+				if(line.charAt(c++)=='0')
+					element=0;
+				else element=1;
 				System.out.println(element);
-
 				if (element == 1) {
 					if(first){
 						//add to the column
@@ -108,7 +111,7 @@ public class DLX {
 					}
 
 				}
-				temp = temp.getRight();
+				temp = (Header)temp.getRight();
 			}
 		}
 		
@@ -147,7 +150,7 @@ public class DLX {
 	}
 
 	private static void printColumn(Element c){
-		for (Element temp = c.getDown(); !temp.equals(c);temp = temp.getDown())
+		for (Element temp = c.getDown(); c!=temp;temp = temp.getDown())
 			System.out.print(((One)temp).getLine()+ " ");
 		System.out.println();
 	}

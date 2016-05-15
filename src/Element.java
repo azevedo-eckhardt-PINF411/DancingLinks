@@ -39,15 +39,15 @@ public abstract class Element {
 	}
 	
 	public void setLeft(Element leftElement){
-		this.right = leftElement;
+		this.left = leftElement;
 	}
 	
 	public void setUp(Element upElement){
-		this.right = upElement;
+		this.up = upElement;
 	}
 	
 	public void setDown(Element downElement){
-		this.right = downElement;
+		this.down = downElement;
 	}
 
 	
