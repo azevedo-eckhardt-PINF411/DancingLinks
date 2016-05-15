@@ -19,8 +19,13 @@ public class DLX {
 	2D, de denombrer ses solutions et d'acher une solution, le cas echeant.
 	 */
 	
-	private static Header h = null;//acho que vai ficar mais simples se a gente tiver ele como variavel global...
-	private static LinkedList<Element> Olist =  null;
+	private  Header h;//acho que vai ficar mais simples se a gente tiver ele como variavel global...
+	private  LinkedList<Element> Olist;
+	
+	public DLX(){
+		h=null;
+		Olist= new LinkedList<Element>();
+	}
 	
 	private static Header readMatrix(){
 		//TODO Gabriel
@@ -124,7 +129,6 @@ public class DLX {
 	
 	private static void uncover(Element c){
 		// c must be a header element
-
 		//add c-column to header list
 		//here is where links do their dance
 		for(Element i=c.getUp(); i!=c; i=i.getUp()){
@@ -138,25 +142,13 @@ public class DLX {
 		c.getLeft().setRight(c);
 	}
 	
-	private static void printLine(Element r){
-		for( Element temp = r; !temp.getRight().equals(r); temp = temp.getRight()){
-			System.out.print(temp.getColumn().getName()+ " ");
-		}
-		
-	}
+	private static void printLine(){}
 	private static void printSolution(){
-
 		
 	}
-
-	public void printMatrix(){
-		
-	}
+	private Header choooseAColumn(){return h;} //////
 	
-	private static Element choooseAColumn(){return h.getRight();}// TODO change name to Header (make it without creating conflicts)
-																 // TODO Improve the function (minimaze branch factor)
-	
-	private static void search(int k){
+	private void search(int k){
 		// TODO Gabriel
 		Element Ok = null;
 		if(h.getRight().equals(h)) {
@@ -164,7 +156,7 @@ public class DLX {
 			return;
 		}
 		
-		Header c = (Header) choooseAColumn();
+		Header c = choooseAColumn();
 		cover(c);
 		
 		//go down in the column
@@ -183,22 +175,19 @@ public class DLX {
 		Olist.add(Ok);
 	}
 	
-	private static void EMC(){
+	private void EMC(){
 	// TODO chamar search zero.
 		//Gabriel
 		h = readMatrix();
 		Olist = new LinkedList<Element>();
 		search(0);
-		
-		h = null;// back to the initial point, where h points to null
-		Olist = null;
 	}
 	
-	private static void pavage2d(){
+	private void pavage2d(){
 		
 	}
 	
-	public static void solve(String s){
+	public void solve(String s){
 
 		if(s.equals("emc"))
 			EMC();
