@@ -2,6 +2,7 @@
 // separation claire entre l'algorithme DLX et son application au probleme du pavage.
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Scanner;
 
 public class DLX {
@@ -148,13 +149,17 @@ public class DLX {
 		System.out.println();
 	}
 	
-	private static void printRow(Element c){
-		for (Element temp = c.getRight(); !temp.equals(c); temp = temp.getRight())
-			System.out.print(((One)temp).getLine()+ " ");
+	private static void printRow(Element r){
+		for (Element temp = r.getRight(); !temp.equals(r); temp = temp.getRight())
+			System.out.print(((Header)(temp.getColumn())).getname()+ " ");
 		System.out.println();
 	}
-	private static void printSolution(){
-		
+	
+	private void printSolution(){
+		ListIterator<Element> listIterator = Olist.listIterator();
+        while (listIterator.hasNext()) {
+        	printRow(listIterator.next());
+        }
 	}
 	private Header choooseAColumn(){
 		int s=Integer.MAX_VALUE;
