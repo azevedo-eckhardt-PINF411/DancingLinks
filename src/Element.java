@@ -28,6 +28,10 @@ public abstract class Element {
 	public Element getDown(){
 		return down;
 	}
+	
+	public Element getColumn(){
+		return column;
+	}
 
 	//seters
 	public void setRight(Element rightElement){

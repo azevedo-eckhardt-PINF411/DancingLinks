@@ -49,7 +49,7 @@ public class DLX {
 					tempLineHeader.addLeft(temp.addUp());
 
 				}
-				else if(element!=0) throw new Error;//TODO import java.Exception or error
+				else if(element!=0) throw Error;//TODO import java.Exception or error		--corrected by removing new
 			}
 		}
 		
@@ -57,11 +57,34 @@ public class DLX {
 	}
 	
 	private static void cover(Element c){
-		//TODO Francisco
+		// c must be a header element
+		//remove c-column from header list
+		c.getLeft().setRight(c.right);
+		c.getRight().setLeft(c.left);
+		
+		for(Element i=c.getDown(); i!=c; i=i.getDown()){ //remove row i
+			for(Element j=i.getRight();j!=i; j=j.getRight()){
+				j.getDown().setUp(j.getUp());
+				j.getUp().setDown(j.getDown());
+				((Header)j.getColumn()).decSize();
+			}
+		}
 	}
 	
 	private static void uncover(Element c){
-		// TODO Francisco
+		// c must be a header element
+
+		//add c-column to header list
+		//here is where links do their dance
+		for(Element i=c.getUp(); i!=c; i=i.getUp()){
+			for(Element j=i.getLeft(); j!=i; j=j.getLeft()){
+				((Header)j.getColumn()).incSize();
+				j.getDown().setUp(j);
+				j.getUp().setDown(j);
+			}
+		}
+		c.getRight().setLeft(c);
+		c.getLeft().setRight(c);
 	}
 	
 	private static void search(int k){
