@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
+//essa classe contem o tabuleiro. e tb converte o tabuleiro mais pecas em um problema EMC.
 public class board extends polyominoElement{
 	int emcColumns;
 	
@@ -91,7 +91,10 @@ public class board extends polyominoElement{
 	}
 	
 	public int[][] emcToData(int[][] m){
-		
+		//TODO essa funcao ta tipo um rascunho. pode implementar ela melhor.
+		// a ideia eh converter a cada linha da saida do pavagem em (i,j,id) isto eh, 
+		//posicao + qual peca eh
+		// pode mudar o nome dela se quiser
 		int [][] r = new int[m.length][3];
 		for(int i = 0; i < m.length; i++)//TODO esse m.length pode dar bug!
 		{
