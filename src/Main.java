@@ -2,10 +2,25 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import polyomino.*;
+//import polyomino.piece;
 
 
 public class Main {
+	
+	public static void print(int [][] m){
+		for(int i = 0; i < m.length; i++){
+			for(int j = 0; j < m[0].length; j++)
+				System.out.print(m[i][j]+" ");
+			System.out.println();
+		}
+	}
+	
+	
 
 	static boolean debug=true;
 	public static void main(String[] args){
@@ -62,6 +77,42 @@ public class Main {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			try{
+				is = new FileInputStream("tests/pavage/scott.txt");
+				System.setIn(is);
+				
+				Scanner in = new Scanner(System.in);
+
+
+				board b = new board(in);
+				b.print();
+
+				List<piece> pList = new ArrayList<piece>();
+				int listSize = in.nextInt();
+				int o = 0;
+				while(in.hasNext() && o < listSize){
+					pList.add(new piece(in));
+					pList.get(o++).print();
+					System.out.println();
+				}
+				
+				int [][] m = b.polyoToEMC(pList);
+				print(m);
+				
+				in.close();
+				is.close();
+				
+				
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 		}
 		
 		else{
