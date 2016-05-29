@@ -1,9 +1,14 @@
 //On  prendra  un  soin  particulier  en  ce  qui  concerne  la  modularite  du  code,  avec  une
 // separation claire entre l'algorithme DLX et son application au probleme du pavage.
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 import java.util.Scanner;
+
+import polyomino.board;
+import polyomino.piece;
 
 public class DLX {
 
@@ -35,7 +40,7 @@ public class DLX {
 		int primColumns = in.nextInt();
 		int secColumns = in.nextInt();	
 		int lines = in.nextInt();
-		int totalColumns = primColumns + secColumns;//TODO print those
+		int totalColumns = primColumns + secColumns;
 		
 		Header temp = h;
 /*	 	//HEAD
@@ -125,6 +130,87 @@ public class DLX {
 		}
 		
 		in.close();
+		return h;
+	}
+	
+	private static Header readMatrix(int[][] m){
+		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
+		
+		int primColumns = (m.length > 0)? m[0].length:0;
+		int secColumns = 0;	// TODO FRANCISCO nao sei o que colocar como secColumns. a gente usa isso depois?
+		int lines =  m.length;
+		int totalColumns = primColumns + secColumns;
+		
+		Header temp = h;
+
+		h.setRight(h);
+		h.setLeft(h);
+		h.setUp(h);
+		h.setDown(h);
+		h.setColumn(h);
+
+		//Creating Headers list
+		for(int i = 0; i < totalColumns; i++){
+			temp.setRight(new Header(temp,h,null,null,null,0,i));
+			temp = (Header)temp.getRight();
+			temp.setDown(temp);
+			temp.setUp(temp);
+			temp.setColumn(temp);
+			h.setLeft(temp); //update circular list: the root's left Elmt is always the latest added header
+		}
+				
+		for(int i = 0; i < lines; i++){ ///
+			temp = (Header)h.getRight(); //initialize in column 0
+			
+			//String line = in.next();
+			int [] line = m[i];
+			int element;
+			boolean first=true;
+			Element o0 = new One(i);
+			Element o = new One(i);
+		//	int c=0;
+
+			int j = 0;
+			//enquanto nao acabou a linha.
+			while (temp!=h)
+			{
+				if(line[j++]== 0 )
+					element=0;
+				else element=1;
+				if (element == 1) {
+					if(first){
+						//add to the column
+						//and then to the line
+						temp.getUp().setDown(o0);
+						o0.setUp(temp.getUp());
+						o0.setLeft(o0);		//just in case there's only one 1 
+						o0.setRight(o0);	//we already make the list circular
+						o0.setDown(temp);
+						o0.setColumn(temp);
+						temp.setUp(o0);
+						temp.incSize();
+						first=false;
+						o=o0;
+					}
+					else{
+						//add to the horz
+						//and vert circ lists
+						//keeping the first elmt of the line to update
+						//the horz circ list corresponding to current row
+						o.setRight(new One(o,o0,temp.getUp(),temp,temp,i));	//"just like" we did for the headers
+						o=(One)o.getRight();
+						temp.getUp().setDown(o); 	//update "ends" 
+						temp.setUp(o);				//of vertical circ list
+						temp.incSize();
+						o0.setLeft(o);	//update end of horz circ list
+					}
+				}
+				//else if(element!=0) throw new Error;//TODO import java.Exception or error
+
+				temp = (Header)temp.getRight();
+			}
+		}
+		
 		return h;
 	}
 	
@@ -223,7 +309,34 @@ public class DLX {
 	}
 	
 	private void pavage2d(){
+		Scanner in = new Scanner(System.in);
 		
+		board b = new board(in);
+		b.print();
+
+		List<piece> pList = new ArrayList<piece>();
+		int listSize = in.nextInt();
+		int o = 0;
+		while(in.hasNext() && o < listSize){
+			pList.add(new piece(in));
+			pList.get(o++).print();
+			System.out.println();
+		}
+		
+		int [][] m = b.polyoToEMC(pList);
+		//print m (converted matrix)
+		for(int i = 0; i < m.length; i++){
+			for(int j = 0; j < m[0].length; j++)
+				System.out.print(m[i][j]+" ");
+			System.out.println();
+		}
+		
+		h = readMatrix(m);
+		Olist = new LinkedList<Element>();
+		
+		search(0); //now testing
+		
+		in.close();
 	}
 	
 	public void solve(String s){
