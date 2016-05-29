@@ -16,14 +16,14 @@ public class board extends polyominoElement{
 	
 	private boolean possibleToInclude(int i,int j ,piece p){
 		// if surpasses the table limits
-		if(i + p.getLines() >= lines || j + p.getColumns() >= columns)
+		if(i + p.getLines() > lines || j + p.getColumns() > columns)
 			return false;
 		
 		//if touches one of the holes inside the board
-		int plines = p.getLines();
+		int plin = p.getLines();
 		int pcol   = p.getColumns();
 		
-		for(int k = 0 ; k < plines; k++)
+		for(int k = 0 ; k < plin; k++)
 			for(int l = 0; l < pcol;l++)
 				if(p.At(k, l) == 1 && matrix[i+k][j+l] == 0)
 					return false;
@@ -39,8 +39,8 @@ public class board extends polyominoElement{
 		int plin = p.getLines();
 		
 		//adding piece`s elements to the line
-		for (int k = 0; k < pcol; k++)
-			for(int l = 0; l < plin; l++)
+		for (int k = 0; k < plin; k++)
+			for(int l = 0; l < pcol; l++)
 				if(p.At(k,l) == 1)
 					line[coordToColumn(i+k, j+l)] = 1;
 		
@@ -50,6 +50,17 @@ public class board extends polyominoElement{
 		return line;
 		}
 		else return null; // or throw exception TODO
+	}
+	
+	private int[] holeLine(){
+		int[] r = new int[emcColumns];
+		for(int i = 0; i < lines; i++)
+			for(int j = 0; j < columns; j++)
+				if(matrix[i][j] == 0)
+					r[coordToColumn(i, j)] = 1;
+				else
+					r[coordToColumn(i, j)] = 0;
+		return r;
 	}
 	
 	public int[][] polyoToEMC(List<piece> pList){
@@ -72,6 +83,8 @@ public class board extends polyominoElement{
 				}
 			id++;
 		}
+		
+		m.add(holeLine());//adding a last line with all the holes on the board
 		
 		int [][] M = m.toArray(new int[0][]);
 		return M;
