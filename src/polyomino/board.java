@@ -75,14 +75,16 @@ public class board extends polyominoElement{
 		List<int[]> m = new ArrayList<int[]>();
 		
 		int id = 0;
-		for(piece p : pList){
-			for(int i = 0; i < lines; i++)
-				for ( int j = 0; j < columns; j++)
-				{
-					int [] temp = pieceToLine(i, j, p,id);
-					if (temp != null)
-						m.add(temp);
-				}
+		for(piece P : pList){
+			List<piece> rotPieces=P.rotations();
+			for(piece p : rotPieces){
+				for(int i = 0; i < lines; i++)
+					for (int j = 0; j < columns; j++){
+						int [] temp = pieceToLine(i, j, p,id);
+						if (temp != null)
+							m.add(temp);
+					}
+			}
 			id++;
 		}
 		
