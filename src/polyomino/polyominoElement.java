@@ -8,6 +8,8 @@ public abstract class polyominoElement {
 	protected int lines;
 	protected int columns;
 	
+	public polyominoElement(){};
+	
 	public polyominoElement(Scanner in){
 		try{
 			CreateMatrix(in);

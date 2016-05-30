@@ -13,6 +13,8 @@ public class board extends polyominoElement{
 	private int coordToColumn(int i, int j){
 		return columns*i+j;
 	}
+
+
 	
 	private boolean possibleToInclude(int i,int j ,piece p){
 		// if surpasses the table limits
