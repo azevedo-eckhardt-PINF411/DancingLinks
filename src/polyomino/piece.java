@@ -48,26 +48,34 @@ public class piece extends polyominoElement{
 		List<piece> rots= new ArrayList<piece>(8);
 		rots.add(this);
 		
-		piece other=rot90();
-		boolean done=false, isPresent=false;
-		int i=0;
-		do{
-			if(i==3)
-				done=true;
-			for(i=0;i<3;i++){
-				isPresent=false;
-				for(piece P: rots){
-					if(P.equals(other)){
-						isPresent=true;
-						break;
-					}
+		boolean contains=false;
+		piece other=rot90();		
+		for(int i=0;i<3;i++){
+			for(piece P : rots){
+				if(P.equals(other)){
+					contains=true;
+					break;
 				}
-				if(!isPresent)
-					rots.add(other);
-				other=other.rot90();
 			}
-			other=other.mirror();
-		}while(!done);
+			if(!contains)
+				rots.add(other);		
+			other=other.rot90();
+			contains=false;
+		}
+		
+		other=other.mirror();
+		for(int i=0;i<3;i++){
+			for(piece P : rots){
+				if(P.equals(other)){
+					contains=true;
+					break;
+				}
+			}
+			if(!contains)
+				rots.add(other);		
+			other=other.rot90();
+			contains=false;
+		}
 		
 		return rots;
 	}

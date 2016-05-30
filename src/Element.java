@@ -1,8 +1,9 @@
 
 public abstract class Element {
-	Element left,right,up,down,column;
+	Element left,right,up,down;
+	Header column;
 	
-	public Element(Element l, Element r, Element u, Element d, Element c){
+	public Element(Element l, Element r, Element u, Element d, Header c){
 		left = l;
 		right = r;
 		up = u;
@@ -29,7 +30,7 @@ public abstract class Element {
 		return down;
 	}
 	
-	public Element getColumn(){
+	public Header getColumn(){
 		return column;
 	}
 
@@ -50,7 +51,7 @@ public abstract class Element {
 		this.down = downElement;
 	}
 	
-	public void setColumn(Element columnElement){
+	public void setColumn(Header columnElement){
 		this.column=columnElement;
 	}
 

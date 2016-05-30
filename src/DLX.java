@@ -11,6 +11,7 @@ import polyomino.board;
 import polyomino.piece;
 
 public class DLX {
+	
 
 	/*l'algorithme DLX
 	On  commencera  par  lire  soigneusement  l'article  de  Knuth.  La
@@ -25,10 +26,14 @@ public class DLX {
 	2D, de denombrer ses solutions et d'acher une solution, le cas echeant.
 	 */
 	
+	List<LinkedList<Element>> solutions;
+	int nSol;
 	private  Header h;//acho que vai ficar mais simples se a gente tiver ele como variavel global...
 	private  LinkedList<Element> Olist;
 	
 	public DLX(){
+		solutions= new ArrayList<LinkedList<Element>>();
+		nSol=0;
 		h=null;
 		Olist= new LinkedList<Element>();
 	}
@@ -224,7 +229,7 @@ public class DLX {
 			for(Element j=i.getRight();j!=i; j=j.getRight()){
 				j.getDown().setUp(j.getUp());
 				j.getUp().setDown(j.getDown());
-				((Header)j.getColumn()).decSize();
+				j.getColumn().decSize();
 			}
 		}
 	}
@@ -235,7 +240,7 @@ public class DLX {
 		//here is where links do their dance
 		for(Element i=c.getUp(); i!=c; i=i.getUp()){
 			for(Element j=i.getLeft(); j!=i; j=j.getLeft()){
-				((Header)j.getColumn()).incSize();
+				j.getColumn().incSize();
 				j.getDown().setUp(j);
 				j.getUp().setDown(j);
 			}
@@ -251,20 +256,23 @@ public class DLX {
 	}
 	
 	private static void printRow(Element r){
-		System.out.print(((Header)(r.getColumn())).getname()+ " ");
+		//while(((Header)r.getLeft().getColumn()).name<((Header)r.getColumn()).name)/////
+		//	r=r.getLeft();//////
+		System.out.print(r.getColumn().getname()+ " ");
 		for (Element temp = r.getRight(); !temp.equals(r); temp = temp.getRight())
-			System.out.print(((Header)(temp.getColumn())).getname()+ " ");
+			System.out.print(temp.getColumn().getname()+ " ");
 		System.out.println();
 	}
 	
 	private void printSolution(){
-		System.out.println("Found a solution!"); //added for testing
+		System.out.println("Printing solution:");
 		ListIterator<Element> listIterator = Olist.listIterator();
         while (listIterator.hasNext()) {
         	printRow(listIterator.next());
         }
 	}
-	private Header choooseAColumn(){
+	
+	private Header chooseAColumn(){
 		int s=Integer.MAX_VALUE;
 		Header c=null;
 		for(Header j=(Header)h.getRight(); j!=h;j=(Header)j.getRight()){
@@ -276,14 +284,30 @@ public class DLX {
 		return c;
 	}
 	
+	void addSolution(){
+		LinkedList<Element> sol = (LinkedList)Olist.clone();
+		
+		ListIterator<Element> listIt= sol.listIterator();
+		Element O = listIt.next();
+		while(listIt.hasNext()){
+			while(O.getLeft().getColumn().name < O.getColumn().name)
+				O=O.getLeft();
+			listIt.set(O);
+			O=listIt.next();
+		}
+			
+		solutions.add(sol);
+	}
+	
 	private void search(int k){
 		Element Ok = null;
 		if(h.getRight().equals(h)) {
-			printSolution();
+			addSolution();
+			nSol++;
 			return;
 		}
 		
-		Header c = choooseAColumn();
+		Header c = chooseAColumn();
 		cover(c);
 		
 		//go down in the column
@@ -295,7 +319,7 @@ public class DLX {
 			search(k+1);
 			Olist.pollLast();
 			r = Ok;
-			c = (Header) r.getColumn();
+			c = r.getColumn();
 			for(Element j = r.getLeft();!j.equals(r);j = j.getLeft())
 				uncover(j.getColumn());
 		}
@@ -305,31 +329,33 @@ public class DLX {
 	private void EMC(){
 		h = readMatrix(); //OK
 		Olist = new LinkedList<Element>();
-		search(0); //now testing
+		nSol=0;
+		search(0); //now working
 	}
 	
 	private void pavage2d(){
+		nSol=0;
 		Scanner in = new Scanner(System.in);
 		
 		board b = new board(in);
-		b.print();
+		//b.print();
 
 		List<piece> pList = new ArrayList<piece>();
 		int listSize = in.nextInt();
 		int o = 0;
 		while(in.hasNext() && o < listSize){
 			pList.add(new piece(in));
-			pList.get(o++).print();
-			System.out.println();
+			//pList.get(o++).print();
+			//System.out.println();
 		}
 		
 		int [][] m = b.polyoToEMC(pList);
 		//print m (converted matrix)
-		for(int i = 0; i < m.length; i++){
+		/*for(int i = 0; i < m.length; i++){
 			for(int j = 0; j < m[0].length; j++)
 				System.out.print(m[i][j]+" ");
 			System.out.println();
-		}
+		}*/
 		
 		h = readMatrix(m);
 		Olist = new LinkedList<Element>();
@@ -346,6 +372,15 @@ public class DLX {
 		
 		if(s.equals("pavage"))
 			pavage2d();
+		
+		System.out.println("Found "+ nSol +" solution(s).");
+		/*for(LinkedList<Element> l : solutions){
+			System.out.println("Printing solution from list:");
+			for(Element O : l)
+				printRow(O);
+		}*/
+		
 	}
+	
 	
 }

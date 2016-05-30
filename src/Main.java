@@ -11,6 +11,7 @@ import polyomino.*;
 
 
 public class Main {
+	static long startTime,elapsedTime;
 	
 	public static void print(int [][] m){
 		for(int i = 0; i < m.length; i++){
@@ -35,8 +36,11 @@ public class Main {
 				System.out.println(in.nextInt()+", "+in.nextInt());
 				in.close();*/
 				DLX p1=new DLX();
+				startTime=System.currentTimeMillis();
 				p1.solve("emc");
+				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: 2 solutions)");
+				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -51,8 +55,11 @@ public class Main {
 				is = new FileInputStream(new File("tests/emc/knuth.txt"));
 				System.setIn(is);
 				DLX p2 = new DLX();
+				startTime=System.currentTimeMillis();
 				p2.solve("emc");
+				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: ?)");
+				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -65,8 +72,11 @@ public class Main {
 				is = new FileInputStream(new File("tests/pavage/mutilated_chessboard4.txt"));
 				System.setIn(is);
 				DLX p3=new DLX();
+				startTime=System.currentTimeMillis();
 				p3.solve("pavage");
+				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: ??)");
+				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
@@ -79,8 +89,11 @@ public class Main {
 				System.setIn(is);
 				
 				DLX p4 = new DLX();
+				startTime=System.currentTimeMillis();
 				p4.solve("pavage");
-				
+				elapsedTime=System.currentTimeMillis();
+				System.out.println("(Reponse attendue: ??)");
+				System.out.println("Elapsed time: "+ (elapsedTime-startTime));				
 				
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();

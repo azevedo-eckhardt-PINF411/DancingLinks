@@ -14,7 +14,7 @@ public abstract class polyominoElement {
 		try{
 			CreateMatrix(in);
 		}catch(Exception e){
-			System.out.print(e.toString()+"mauvais entree - only * and . allowed");
+			System.out.print(e.toString()+"mauvaise entree - only * and . allowed");
 		}
 	}
 	

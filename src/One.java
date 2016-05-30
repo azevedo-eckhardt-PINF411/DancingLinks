@@ -3,7 +3,7 @@ public class One extends Element{
 
 	private int nLine;
 	
-	public One(Element l, Element r, Element u, Element d, Element c, int nLine) {
+	public One(Element l, Element r, Element u, Element d, Header c, int nLine) {
 		super(l, r, u, d, c);
 		this.nLine = nLine;
 	}
