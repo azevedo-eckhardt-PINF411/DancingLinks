@@ -64,7 +64,7 @@ public class piece extends polyominoElement{
 		}
 		
 		other=other.mirror();
-		for(int i=0;i<3;i++){
+		for(int i=0;i<4;i++){
 			for(piece P : rots){
 				if(P.equals(other)){
 					contains=true;

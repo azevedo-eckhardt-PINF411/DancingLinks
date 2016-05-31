@@ -69,7 +69,7 @@ public class Main {
 			
 			//read from tests/pavage/scott.txt
 			try{
-				is = new FileInputStream(new File("tests/pavage/mutilated_chessboard4.txt"));
+				is = new FileInputStream(new File("tests/pavage/tetris_5_8.txt"));
 				System.setIn(is);
 				DLX p3=new DLX();
 				startTime=System.currentTimeMillis();
@@ -85,7 +85,7 @@ public class Main {
 			}
 
 			try{
-				is = new FileInputStream("tests/pavage/scott.txt");
+				is = new FileInputStream("tests/pavage/pentaminos_3_20.txt");
 				System.setIn(is);
 				
 				DLX p4 = new DLX();

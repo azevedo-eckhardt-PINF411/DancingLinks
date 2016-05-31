@@ -23,19 +23,21 @@ public class DLX {
 	
 	/*pavage
 	Le programme devra permettre de decrire un probleme de pavage sur une grille
-	2D, de denombrer ses solutions et d'acher une solution, le cas echeant.
+	2D, de denombrer ses solutions et d'afficher une solution, le cas echeant.
 	 */
 	
-	List<LinkedList<Element>> solutions;
-	int nSol;
+	private List<LinkedList<Element>> solutions;
 	private  Header h;//acho que vai ficar mais simples se a gente tiver ele como variavel global...
 	private  LinkedList<Element> Olist;
 	
 	public DLX(){
 		solutions= new ArrayList<LinkedList<Element>>();
-		nSol=0;
 		h=null;
 		Olist= new LinkedList<Element>();
+	}
+	
+	public int nSolutions(){
+		return solutions.size();
 	}
 	
 	private static Header readMatrix(){
@@ -84,7 +86,7 @@ public class DLX {
 			temp.setColumn(temp);
 			h.setLeft(temp); //update circular list: the root's left Elmt is always the latest added header
 		}
-				
+		
 		for(int i = 0; i < lines; i++){ ///
 			temp = (Header)h.getRight(); //initialize in column 0
 			String line = in.next();
@@ -94,9 +96,7 @@ public class DLX {
 			Element o = new One(i);
 			int c=0;
 
-			//enquanto nao acabou a linha.
-			while (temp!=h)
-			{
+			while (temp!=h){//filling primary columns
 				if(line.charAt(c++)=='0')
 					element=0;
 				else element=1;
@@ -128,11 +128,19 @@ public class DLX {
 						o0.setLeft(o);	//update end of horz circ list
 					}
 				}
-				//else if(element!=0) throw new Error;//TODO import java.Exception or error
-
 				temp = (Header)temp.getRight();
 			}
 		}
+		
+		//correct secondary columns' headers
+		temp=(Header)h.getLeft();
+		for(int i=0; i<secColumns;i++){
+			temp.setRight(temp);
+			temp=(Header)temp.getLeft();
+			temp.getRight().setLeft(temp.getRight());
+		}
+		temp.setRight(h);
+		h.setLeft(temp);
 		
 		in.close();
 		return h;
@@ -215,6 +223,16 @@ public class DLX {
 				temp = (Header)temp.getRight();
 			}
 		}
+		//correct secondary columns' headers
+				temp=(Header)h.getLeft();
+				for(int i=0; i<secColumns;i++){
+					temp.setRight(temp);
+					temp=(Header)temp.getLeft();
+					temp.getRight().setLeft(temp.getRight());
+				}
+				temp.setRight(h);
+				h.setLeft(temp);
+				
 		
 		return h;
 	}
@@ -303,7 +321,6 @@ public class DLX {
 		Element Ok = null;
 		if(h.getRight().equals(h)) {
 			addSolution();
-			nSol++;
 			return;
 		}
 		
@@ -329,12 +346,10 @@ public class DLX {
 	private void EMC(){
 		h = readMatrix(); //OK
 		Olist = new LinkedList<Element>();
-		nSol=0;
 		search(0); //now working
 	}
 	
 	private void pavage2d(){
-		nSol=0;
 		Scanner in = new Scanner(System.in);
 		
 		board b = new board(in);
@@ -373,7 +388,7 @@ public class DLX {
 		if(s.equals("pavage"))
 			pavage2d();
 		
-		System.out.println("Found "+ nSol +" solution(s).");
+		//System.out.println("Found "+ nSolutions() +" solution(s).");
 		/*for(LinkedList<Element> l : solutions){
 			System.out.println("Printing solution from list:");
 			for(Element O : l)
