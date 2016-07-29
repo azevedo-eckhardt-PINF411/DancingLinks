@@ -5,9 +5,9 @@ ___
 #### Coming up next
   * [ ] Iterator
   * [ ] Improved site
-  * [ ] Code omments
+  * [ ] Code comments
   * [ ] GUI
-  * [ ] Improved rotations (n^2 complexity)
+  * [x] Improved rotations (n^2 complexity) -- branch comments
   * [ ] Split DLX/cover problem classes
 
 ___
