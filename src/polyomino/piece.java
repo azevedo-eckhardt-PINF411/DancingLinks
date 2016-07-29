@@ -1,11 +1,12 @@
 package polyomino;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
 public class piece extends polyominoElement{
-
 	
 	public piece(Scanner in){super(in);}
 	
@@ -45,38 +46,23 @@ public class piece extends polyominoElement{
 	}
 	
 	public List<piece> rotations(){//create possible orientations for piece p
-		List<piece> rots= new ArrayList<piece>(8);
+		List<piece> rotations= new ArrayList<piece>();
+		Collection<piece> rots = new HashSet<piece>(8);
 		rots.add(this);
 		
-		boolean contains=false;
 		piece other=rot90();		
-		for(int i=0;i<3;i++){
-			for(piece P : rots){
-				if(P.equals(other)){
-					contains=true;
-					break;
-				}
-			}
-			if(!contains)
-				rots.add(other);		
-			other=other.rot90();
-			contains=false;
+		for(int i=0;i<3;i++,other=other.rot90()){
+			rots.add(other);
 		}
 		
-		other=other.mirror();
-		for(int i=0;i<4;i++){
-			for(piece P : rots){
-				if(P.equals(other)){
-					contains=true;
-					break;
-				}
-			}
-			if(!contains)
-				rots.add(other);		
-			other=other.rot90();
-			contains=false;
+		other=mirror();
+		for(int i=0;i<4;i++,other=other.rot90()){
+			rots.add(other);
 		}
 		
-		return rots;
+		for(piece P : rots)
+			rotations.add(P);
+		
+		return rotations;
 	}
 }
