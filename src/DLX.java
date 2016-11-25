@@ -1,9 +1,6 @@
 //On  prendra  un  soin  particulier  en  ce  qui  concerne  la  modularite  du  code,  avec  une
 // separation claire entre l'algorithme DLX et son application au probleme du pavage.
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,10 +9,9 @@ import java.util.Scanner;
 
 import polyomino.board;
 import polyomino.piece;
+import DataStructureElements.*;
 
 public class DLX {
-	
-
 	/*l'algorithme DLX
 	On  commencera  par  lire  soigneusement  l'article  de  Knuth.  La
 	realisation de l'algorithme DLX devra permettre de parcourir toutes les solutions
@@ -257,11 +253,11 @@ public class DLX {
 		c.getLeft().setRight(c);
 	}
 
-	private static void printColumn(Element c){//tested
+	/*private static void printColumn(Element c){//tested
 		for (Element temp = c.getDown(); c!=temp;temp = temp.getDown())
 			System.out.print(((One)temp).getLine()+ " ");
 		System.out.println();
-	}
+	}*/
 	
 	private static void printRow(Element r){
 		//while(((Header)r.getLeft().getColumn()).name<((Header)r.getColumn()).name)/////
@@ -301,13 +297,14 @@ public class DLX {
 		return c;
 	}
 	
-	void addSolution(){
-		LinkedList<Element> sol = (LinkedList)Olist.clone();
+	private void addSolution(){
+		@SuppressWarnings("unchecked")
+		LinkedList<Element> sol = (LinkedList<Element>)Olist.clone();
 		
 		ListIterator<Element> listIt= sol.listIterator();
 		Element O = listIt.next();
 		while(listIt.hasNext()){
-			while(O.getLeft().getColumn().name < O.getColumn().name)
+			while(O.getLeft().getColumn().getname() < O.getColumn().getname())
 				O=O.getLeft();
 			listIt.set(O);
 			O=listIt.next();
@@ -359,10 +356,16 @@ public class DLX {
 				if(line.charAt(j)=='1')
 					m[i][j] = 1;
 		}
-		h = readMatrix(m); //OK
+		h = readMatrix(m);
 		Olist = new LinkedList<Element>();
 		search(0);
 		in.close();
+	}
+	
+	private void EMC(int[][] m){
+		h = readMatrix(m);
+		Olist = new LinkedList<Element>();
+		search(0);
 	}
 	
 	private void pavage2d(){
@@ -402,30 +405,26 @@ public class DLX {
 		InputStream stream = new ByteArrayInputStream(s.getBytes());
 		System.setIn(stream);*/
 	
-		h = readMatrix(m);
-		Olist = new LinkedList<Element>();
-		
-		search(0); //now testing
+		solve(m);
 		
 		in.close();
 	}
 	
 	public void solve(String s){
-
 		if(s.equals("emc"))
 			EMC();
 		
 		if(s.equals("pavage"))
 			pavage2d();
-		
 		//System.out.println("Found "+ nSolutions() +" solution(s).");
 		/*for(LinkedList<Element> l : solutions){
 			System.out.println("Printing solution from list:");
 			for(Element O : l)
 				printRow(O);
-		}*/
-		
+		}*/	
 	}
+	
+	public void solve(int[][] m){EMC(m);}
 	
 	public int getColomns(){return totalColumns;}
 	
@@ -459,4 +458,5 @@ public class DLX {
 		return true;
 	}
 	
+	public List<LinkedList<Element>> getSolutions(){return solutions;}
 }

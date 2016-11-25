@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-//essa classe contem o tabuleiro. e tb converte o tabuleiro mais pecas em um problema EMC.
+//this class contains the board and converts it in a EMC problem.
 public class board extends polyominoElement{
 	int emcColumns;
 	
@@ -13,8 +13,6 @@ public class board extends polyominoElement{
 	private int coordToColumn(int i, int j){
 		return columns*i+j;
 	}
-
-
 	
 	private boolean possibleToInclude(int i,int j ,piece p){
 		// if surpasses the table limits

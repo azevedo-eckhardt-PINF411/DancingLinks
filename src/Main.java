@@ -2,12 +2,13 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+//import java.util.ArrayList;
+import java.util.LinkedList;
+//import java.util.List;
+//import java.util.Scanner;
 
-import polyomino.*;
-//import polyomino.piece;
+//import polyomino.*;
+import DataStructureElements.*;
 
 
 public class Main {
@@ -78,15 +79,17 @@ public class Main {
 				System.out.println("Test number 3 ......");
 				is = new FileInputStream(new File("../tests/pavage/tetris_5_8.txt"));
 				System.setIn(is);
-				DLX p3=new DLX();
+				Pavage p3=new Pavage();
 				startTime=System.currentTimeMillis();
-				p3.solve("pavage");
+				p3.solve();
 				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: 99392)");
 				System.out.println("(Reponse obtenue:  " + p3.nSolutions() + ")");
 				System.out.println("(Verification des sorties donne : " + p3.checkSolutions() + ")");
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
+				
+				p3.showSolution(p3.getSolutions().get(0));
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			} catch (IOException e) {
@@ -97,15 +100,21 @@ public class Main {
 				System.out.println("Test number 4 ......");
 				is = new FileInputStream("../tests/pavage/pentaminos_3_20.txt");
 				System.setIn(is);
-				
-				DLX p4 = new DLX();
+
+				Pavage p4=new Pavage();
 				startTime=System.currentTimeMillis();
-				p4.solve("pavage");
+				p4.solve();
 				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: 8)");
 				System.out.println("(Reponse obtenue:  " + p4.nSolutions() + ")");
 				System.out.println("(Verification des sorties donne : " + p4.checkSolutions() + ")");
-				System.out.println("Elapsed time: "+ (elapsedTime-startTime));				
+				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
+				
+				int i = 0;
+				for(LinkedList<Element> sol : p4.getSolutions()){
+					p4.showSolution(sol);
+					System.out.println("now viewing solution number" + ++i + "........");
+				}
 				
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
