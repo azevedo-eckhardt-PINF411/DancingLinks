@@ -53,25 +53,5 @@ public abstract class Element {
 	
 	public void setColumn(Header columnElement){
 		this.column=columnElement;
-	}
-
-	
-	/* talvez depois, pra modularizar o odigo
-	//adders
-	public void addUp(Element e){}// TODO add the element to the list
-
-	public void addDown(Element e){}
-
-	public void addRight(Element e){}
-
-	public void addLeft(Element e){}
-	
-	public Element addUp(){}// TODO add a One to the list. return the element added
-
-	public Element addDown(){}
-
-	public Element addRight(){}
-
-	public Element addLeft(){}*/
-	
+	}	
 }

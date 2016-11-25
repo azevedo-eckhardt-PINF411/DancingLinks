@@ -27,27 +27,31 @@ public class DLX {
 	 */
 	
 	private List<LinkedList<Element>> solutions;
-	private  Header h;//acho que vai ficar mais simples se a gente tiver ele como variavel global...
+	private  Header h;
 	private  LinkedList<Element> Olist;
+	private int totalColumns;
 	
 	public DLX(){
 		solutions= new ArrayList<LinkedList<Element>>();
 		h=null;
 		Olist= new LinkedList<Element>();
+		totalColumns = 0;
 	}
 	
 	public int nSolutions(){
 		return solutions.size();
 	}
 	
-	private static Header readMatrix(){
+	private Header readMatrix(){
+		//this function reads the matrix from the standard input (from the buffer, using System.in)
+		//and then builds the data structure suggested in Knuth`s article
 		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
 		Scanner in = new Scanner(System.in);
 		
 		int primColumns = in.nextInt();
 		int secColumns = in.nextInt();	
 		int lines = in.nextInt();
-		int totalColumns = primColumns + secColumns;
+		totalColumns = primColumns + secColumns;
 		
 		Header temp = h;
 /*	 	//HEAD
@@ -146,7 +150,9 @@ public class DLX {
 		return h;
 	}
 	
-	private static Header readMatrix(int[][] m){
+	private Header readMatrix(int[][] m){
+		//this function takes a matrix as input
+		//and then builds the data structure suggested in knuth`s article
 		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
 		
 		int primColumns = (m.length > 0)? m[0].length:0;
@@ -282,11 +288,20 @@ public class DLX {
 		System.out.println();
 	}
 	
-	private void printSolution(){
+	private void printSolution(List<Element> sol){
 		System.out.println("Printing solution:");
-		ListIterator<Element> listIterator = Olist.listIterator();
+		ListIterator<Element> listIt = sol.listIterator();
+        while (listIt.hasNext()) {
+        	One o = (One) listIt.next();
+        	System.out.print("Line " + o.getLine() + ": ");
+        	printRow(o);
+        }
+	}
+	
+	public void printSolutions(){
+		ListIterator<LinkedList<Element>> listIterator = solutions.listIterator();
         while (listIterator.hasNext()) {
-        	printRow(listIterator.next());
+        	printSolution(listIterator.next());
         }
 	}
 	
@@ -346,7 +361,7 @@ public class DLX {
 	private void EMC(){
 		h = readMatrix(); //OK
 		Olist = new LinkedList<Element>();
-		search(0); //now working
+		search(0);
 	}
 	
 	private void pavage2d(){
@@ -397,5 +412,5 @@ public class DLX {
 		
 	}
 	
-	
+	public int getColomns(){return totalColumns;}
 }

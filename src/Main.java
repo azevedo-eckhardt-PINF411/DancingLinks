@@ -29,7 +29,7 @@ public class Main {
 			FileInputStream is = null;
 			//read from tests/emc/sujet.txt
 			try{
-				is = new FileInputStream("tests/emc/sujet.txt");
+				is = new FileInputStream("../tests/emc/sujet.txt");
 				System.setIn(is);
 				/*
 				Scanner in = new Scanner(System.in);
@@ -40,6 +40,8 @@ public class Main {
 				p1.solve("emc");
 				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: 2 solutions)");
+				System.out.println("(Reponse obtenue:" + p1.nSolutions() + ")");	
+				p1.printSolutions();
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
 			} catch (FileNotFoundException e) {
@@ -52,13 +54,15 @@ public class Main {
 			
 			//read from tests/emc/knuth.txt
 			try{
-				is = new FileInputStream(new File("tests/emc/knuth.txt"));
+				is = new FileInputStream(new File("../tests/emc/knuth.txt"));
 				System.setIn(is);
 				DLX p2 = new DLX();
 				startTime=System.currentTimeMillis();
 				p2.solve("emc");
 				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: ?)");
+				System.out.println("(Reponse obtenue:" + p2.nSolutions() + ")");
+				p2.printSolutions();
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
 			} catch (FileNotFoundException e) {
@@ -69,13 +73,14 @@ public class Main {
 			
 			//read from tests/pavage/scott.txt
 			try{
-				is = new FileInputStream(new File("tests/pavage/tetris_5_8.txt"));
+				is = new FileInputStream(new File("../tests/pavage/tetris_5_8.txt"));
 				System.setIn(is);
 				DLX p3=new DLX();
 				startTime=System.currentTimeMillis();
 				p3.solve("pavage");
 				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: ??)");
+				
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
 			} catch (FileNotFoundException e) {
@@ -85,7 +90,7 @@ public class Main {
 			}
 
 			try{
-				is = new FileInputStream("tests/pavage/pentaminos_3_20.txt");
+				is = new FileInputStream("../tests/pavage/pentaminos_3_20.txt");
 				System.setIn(is);
 				
 				DLX p4 = new DLX();
@@ -100,7 +105,7 @@ public class Main {
 			}
 			
 			/*try{
-				is = new FileInputStream("tests/pavage/tetris_5_8.txt");
+				is = new FileInputStream("../tests/pavage/tetris_5_8.txt");
 				System.setIn(is);
 				
 				DLX p5 = new DLX();
