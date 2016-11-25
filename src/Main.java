@@ -20,8 +20,6 @@ public class Main {
 			System.out.println();
 		}
 	}
-	
-	
 
 	static boolean debug=true;
 	public static void main(String[] args){
@@ -29,6 +27,7 @@ public class Main {
 			FileInputStream is = null;
 			//read from tests/emc/sujet.txt
 			try{
+				System.out.println("Test number 1 ......");
 				is = new FileInputStream("../tests/emc/sujet.txt");
 				System.setIn(is);
 				/*
@@ -42,6 +41,7 @@ public class Main {
 				System.out.println("(Reponse attendue: 2 solutions)");
 				System.out.println("(Reponse obtenue:" + p1.nSolutions() + ")");	
 				p1.printSolutions();
+				System.out.println("(Verification des sorties donne : " + p1.checkSolutions() + ")");
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
 			} catch (FileNotFoundException e) {
@@ -54,6 +54,7 @@ public class Main {
 			
 			//read from tests/emc/knuth.txt
 			try{
+				System.out.println("Test number 2 ......");
 				is = new FileInputStream(new File("../tests/emc/knuth.txt"));
 				System.setIn(is);
 				DLX p2 = new DLX();
@@ -63,6 +64,7 @@ public class Main {
 				System.out.println("(Reponse attendue: ?)");
 				System.out.println("(Reponse obtenue:" + p2.nSolutions() + ")");
 				p2.printSolutions();
+				System.out.println("(Verification des sorties donne : " + p2.checkSolutions() + ")");
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
 			} catch (FileNotFoundException e) {
@@ -73,6 +75,7 @@ public class Main {
 			
 			//read from tests/pavage/scott.txt
 			try{
+				System.out.println("Test number 3 ......");
 				is = new FileInputStream(new File("../tests/pavage/tetris_5_8.txt"));
 				System.setIn(is);
 				DLX p3=new DLX();
@@ -80,7 +83,8 @@ public class Main {
 				p3.solve("pavage");
 				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: ??)");
-				
+				System.out.println("(Reponse obtenue:" + p3.nSolutions() + ")");
+				System.out.println("(Verification des sorties donne : " + p3.checkSolutions() + ")");
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
 			} catch (FileNotFoundException e) {
@@ -90,6 +94,7 @@ public class Main {
 			}
 
 			try{
+				System.out.println("Test number 4 ......");
 				is = new FileInputStream("../tests/pavage/pentaminos_3_20.txt");
 				System.setIn(is);
 				
@@ -98,6 +103,8 @@ public class Main {
 				p4.solve("pavage");
 				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: ??)");
+				System.out.println("(Reponse obtenue:" + p4.nSolutions() + ")");
+				System.out.println("(Verification des sorties donne : " + p4.checkSolutions() + ")");
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));				
 				
 			} catch (FileNotFoundException e) {

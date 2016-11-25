@@ -158,7 +158,7 @@ public class DLX {
 		int primColumns = (m.length > 0)? m[0].length:0;
 		int secColumns = 0;	// TODO FRANCISCO nao sei o que colocar como secColumns. a gente usa isso depois?
 		int lines =  m.length;
-		int totalColumns = primColumns + secColumns;
+		totalColumns = primColumns + secColumns;
 		
 		Header temp = h;
 
@@ -413,4 +413,35 @@ public class DLX {
 	}
 	
 	public int getColomns(){return totalColumns;}
+	
+	public boolean checkSolution(List<Element> sol){
+		//checkin if a set of elements is a solution
+		boolean []isCovered = new boolean[totalColumns];
+		
+		ListIterator<Element> listIt = sol.listIterator();
+        while (listIt.hasNext()) {
+        	One o = (One) listIt.next();
+        	One elemsInLine = o;
+        	do{
+        		int col = elemsInLine.getColumn().getname();
+        		if (col<0 || col >= totalColumns) return false;
+        		//System.out.println(col + " - " + totalColumns);// debugging
+        		isCovered[col] = true;
+        		elemsInLine = (One) elemsInLine.getRight();
+        	}while(elemsInLine != o);
+        }
+		
+        for(int i = 0; i<totalColumns; i++)
+        	if(!isCovered[i]) return false;
+		return true;
+		}
+	public boolean checkSolutions()
+	{
+		ListIterator<LinkedList<Element>> listIterator = solutions.listIterator();
+        while (listIterator.hasNext()) {
+        	if(!checkSolution(listIterator.next())) return false;
+        }		
+		return true;
+	}
+	
 }
