@@ -1,6 +1,9 @@
 //On  prendra  un  soin  particulier  en  ce  qui  concerne  la  modularite  du  code,  avec  une
 // separation claire entre l'algorithme DLX et son application au probleme du pavage.
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,7 +44,8 @@ public class DLX {
 	public int nSolutions(){
 		return solutions.size();
 	}
-	
+	/*
+	//never used
 	private Header readMatrix(){
 		//this function reads the matrix from the standard input (from the buffer, using System.in)
 		//and then builds the data structure suggested in Knuth`s article
@@ -54,27 +58,7 @@ public class DLX {
 		totalColumns = primColumns + secColumns;
 		
 		Header temp = h;
-/*	 	//HEAD
-		//Creating Header`s list
-		for(int i = 0; i < totalColumns; i++){
-			temp.setRight(new Header(temp,h,null,null,h,0,i));// the headers point their c`s to the root. invariant: the list is circular
-			temp = temp.getRight();
-		}
-		
-		for(int i = 0; i < lines; i++){
-			temp = h;
-			Element tempLineHeader = new Header();
-			//enquanto nao acabou a linha.
-			while (!temp.getRight().equals(h))//TODO ou entao comparar os nomes
-			{
-				temp = temp.getRight();// acho que tem coisa errada aqui...
-				int element = in.nextInt();
-				if (element == 1) {
-					tempLineHeader.addLeft(temp.addUp());
 
-				}
-				else if(element!=0) throw new Error;//TODO import java.Exception or error
-//*/
 		h.setRight(h);
 		h.setLeft(h);
 		h.setUp(h);
@@ -149,7 +133,7 @@ public class DLX {
 		in.close();
 		return h;
 	}
-	
+	*/
 	private Header readMatrix(int[][] m){
 		//this function takes a matrix as input
 		//and then builds the data structure suggested in knuth`s article
@@ -359,15 +343,32 @@ public class DLX {
 	}
 	
 	private void EMC(){
-		h = readMatrix(); //OK
+
+		Scanner in = new Scanner(System.in);
+		
+		int primColumns = in.nextInt();
+		int secColumns = in.nextInt();	
+		int lines = in.nextInt();
+		totalColumns = primColumns + secColumns;
+		
+		int[][] m = new int[lines][totalColumns];
+		
+		for(int i = 0; i < lines; i++){
+			String line = in.next();
+			for(int j = 0; j < totalColumns; j++)
+				if(line.charAt(j)=='1')
+					m[i][j] = 1;
+		}
+		h = readMatrix(m); //OK
 		Olist = new LinkedList<Element>();
 		search(0);
+		in.close();
 	}
 	
 	private void pavage2d(){
 		Scanner in = new Scanner(System.in);
 		
-		board b = new board(in);
+		board b = new board(in);	
 		//b.print();
 
 		List<piece> pList = new ArrayList<piece>();
@@ -386,7 +387,21 @@ public class DLX {
 				System.out.print(m[i][j]+" ");
 			System.out.println();
 		}*/
+		// in case one want to use the function ReadMatrix() instead
+		//of ReadMatrix(int [][]m) (which would much more time!) 
+		/*int lin = m.length;
+		int cols = (lin > 0 ? m[0].length : 0);
+		String s = cols + "\n0\n" + lin+ "\n";
 		
+		for(int i=0;i < lin;i++){
+			for(int j = 0; j < cols; j++)
+				s += m[i][j];
+			s+="\n";
+		}
+	
+		InputStream stream = new ByteArrayInputStream(s.getBytes());
+		System.setIn(stream);*/
+	
 		h = readMatrix(m);
 		Olist = new LinkedList<Element>();
 		

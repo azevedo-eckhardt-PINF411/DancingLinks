@@ -39,7 +39,7 @@ public class Main {
 				p1.solve("emc");
 				elapsedTime=System.currentTimeMillis();
 				System.out.println("(Reponse attendue: 2 solutions)");
-				System.out.println("(Reponse obtenue:" + p1.nSolutions() + ")");	
+				System.out.println("(Reponse obtenue:  " + p1.nSolutions() + ")");	
 				p1.printSolutions();
 				System.out.println("(Verification des sorties donne : " + p1.checkSolutions() + ")");
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
@@ -61,8 +61,8 @@ public class Main {
 				startTime=System.currentTimeMillis();
 				p2.solve("emc");
 				elapsedTime=System.currentTimeMillis();
-				System.out.println("(Reponse attendue: ?)");
-				System.out.println("(Reponse obtenue:" + p2.nSolutions() + ")");
+				System.out.println("(Reponse attendue: 1)");
+				System.out.println("(Reponse obtenue:  " + p2.nSolutions() + ")");
 				p2.printSolutions();
 				System.out.println("(Verification des sorties donne : " + p2.checkSolutions() + ")");
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
@@ -82,8 +82,8 @@ public class Main {
 				startTime=System.currentTimeMillis();
 				p3.solve("pavage");
 				elapsedTime=System.currentTimeMillis();
-				System.out.println("(Reponse attendue: ??)");
-				System.out.println("(Reponse obtenue:" + p3.nSolutions() + ")");
+				System.out.println("(Reponse attendue: 99392)");
+				System.out.println("(Reponse obtenue:  " + p3.nSolutions() + ")");
 				System.out.println("(Verification des sorties donne : " + p3.checkSolutions() + ")");
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));
 				is.close();
@@ -102,8 +102,8 @@ public class Main {
 				startTime=System.currentTimeMillis();
 				p4.solve("pavage");
 				elapsedTime=System.currentTimeMillis();
-				System.out.println("(Reponse attendue: ??)");
-				System.out.println("(Reponse obtenue:" + p4.nSolutions() + ")");
+				System.out.println("(Reponse attendue: 8)");
+				System.out.println("(Reponse obtenue:  " + p4.nSolutions() + ")");
 				System.out.println("(Verification des sorties donne : " + p4.checkSolutions() + ")");
 				System.out.println("Elapsed time: "+ (elapsedTime-startTime));				
 				
