@@ -1,3 +1,8 @@
+//This graphical interface was based on
+//Diego Souza`s implementation, which can
+//be found at the following web address:
+//https://github.com/hfiuza/DancingLinks
+
 import java.awt.Color;
 import java.awt.BorderLayout;
 import javax.swing.*;
