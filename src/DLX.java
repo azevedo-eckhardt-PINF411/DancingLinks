@@ -136,7 +136,7 @@ public class DLX {
 		Header h = new Header(null,null,null,null,null,-1,-1);// that`s the root
 		
 		int primColumns = (m.length > 0)? m[0].length:0;
-		int secColumns = 0;	// TODO FRANCISCO nao sei o que colocar como secColumns. a gente usa isso depois?
+		int secColumns = 0;
 		int lines =  m.length;
 		totalColumns = primColumns + secColumns;
 		
@@ -151,7 +151,7 @@ public class DLX {
 		//Creating Headers list
 		for(int i = 0; i < totalColumns; i++){
 			temp.setRight(new Header(temp,h,null,null,null,0,i));
-			temp = (Header)temp.getRight();
+			temp = temp.getRight();
 			temp.setDown(temp);
 			temp.setUp(temp);
 			temp.setColumn(temp);
@@ -159,7 +159,7 @@ public class DLX {
 		}
 				
 		for(int i = 0; i < lines; i++){ ///
-			temp = (Header)h.getRight(); //initialize in column 0
+			temp = h.getRight(); //initialize in column 0
 			
 			//String line = in.next();
 			int [] line = m[i];
@@ -197,7 +197,7 @@ public class DLX {
 						//keeping the first elmt of the line to update
 						//the horz circ list corresponding to current row
 						o.setRight(new One(o,o0,temp.getUp(),temp,temp,i));	//"just like" we did for the headers
-						o=(One)o.getRight();
+						o = o.getRight();
 						temp.getUp().setDown(o); 	//update "ends" 
 						temp.setUp(o);				//of vertical circ list
 						temp.incSize();
@@ -206,14 +206,14 @@ public class DLX {
 				}
 				//else if(element!=0) throw new Error;//TODO import java.Exception or error
 
-				temp = (Header)temp.getRight();
+				temp = temp.getRight();
 			}
 		}
 		//correct secondary columns' headers
-				temp=(Header)h.getLeft();
+				temp=h.getLeft();
 				for(int i=0; i<secColumns;i++){
 					temp.setRight(temp);
-					temp=(Header)temp.getLeft();
+					temp = temp.getLeft();
 					temp.getRight().setLeft(temp.getRight());
 				}
 				temp.setRight(h);
@@ -288,7 +288,7 @@ public class DLX {
 	private Header chooseAColumn(){
 		int s=Integer.MAX_VALUE;
 		Header c=null;
-		for(Header j=(Header)h.getRight(); j!=h;j=(Header)j.getRight()){
+		for(Header j=h.getRight(); j!=h;j=j.getRight()){
 			if(j.getSize()<s){
 				c=j;
 				s=j.getSize();
@@ -441,7 +441,7 @@ public class DLX {
         		if (col<0 || col >= totalColumns) return false;
         		//System.out.println(col + " - " + totalColumns);// debugging
         		isCovered[col] = true;
-        		elemsInLine = (One) elemsInLine.getRight();
+        		elemsInLine =  elemsInLine.getRight();
         	}while(elemsInLine != o);
         }
 		

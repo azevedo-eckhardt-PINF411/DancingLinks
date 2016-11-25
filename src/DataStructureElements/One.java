@@ -17,4 +17,14 @@ public class One extends Element{
 	}
 
 	public int getLine(){return nLine;}
+
+	//getters
+		public One getRight(){
+			return (One)super.getRight();
+		}
+
+		public One getLeft(){
+			return (One)super.getLeft();
+		}
+
 }

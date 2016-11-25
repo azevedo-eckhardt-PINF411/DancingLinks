@@ -113,7 +113,7 @@ public class Main {
 				int i = 0;
 				for(LinkedList<Element> sol : p4.getSolutions()){
 					p4.showSolution(sol);
-					System.out.println("now viewing solution number" + ++i + "........");
+					System.out.println("now viewing solution number " + ++i + "........");
 				}
 				
 			} catch (FileNotFoundException e) {

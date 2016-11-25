@@ -23,6 +23,12 @@ public class Header extends Element {
 	public void decSize(){
 		size--;
 	}
+	public Header getRight(){
+		return (Header)super.getRight();
+	}
 
+	public Header getLeft(){
+		return (Header)super.getLeft();
+	}
 
 }

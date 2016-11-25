@@ -1,11 +1,11 @@
 package polyomino;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class piece extends polyominoElement{
-
 	
 	public piece(Scanner in){super(in);}
 	
@@ -23,9 +23,8 @@ public class piece extends polyominoElement{
 				for(int c=0;c<columns;c++)
 					if(matrix[l][c]!=p.matrix[l][c])
 						return false;
-			
 			return true;
-		}	
+		}
 	}
 	
 	private piece mirror(){
@@ -36,7 +35,7 @@ public class piece extends polyominoElement{
 		return mirrored;
 	}
 	
-	private piece rot90(){///conferir
+	private piece rot90(){
 		piece rot=new piece(columns,lines);
 		for(int i=0;i<lines;i++)
 			for(int j=0; j<columns; j++)
@@ -46,13 +45,17 @@ public class piece extends polyominoElement{
 	
 	public List<piece> rotations(){//create possible orientations for piece p
 		List<piece> rots= new ArrayList<piece>(8);
+//		HashMap<piece, piece> rotats = new HashMap<>();
+//		rotats.put(this, this);
 		rots.add(this);
 		
 		boolean contains=false;
 		piece other=rot90();		
 		for(int i=0;i<3;i++){
+//			if(!rotats.containsKey(other))
+//				rotats.put(other,other);
 			for(piece P : rots){
-				if(P.equals(other)){
+				if(P.equals(other) ){
 					contains=true;
 					break;
 				}
@@ -65,6 +68,8 @@ public class piece extends polyominoElement{
 		
 		other=other.mirror();
 		for(int i=0;i<4;i++){
+//			if(!rotats.containsKey(other))
+//				rotats.put(other,other);
 			for(piece P : rots){
 				if(P.equals(other)){
 					contains=true;
@@ -76,7 +81,7 @@ public class piece extends polyominoElement{
 			other=other.rot90();
 			contains=false;
 		}
-		
-		return rots;
+		return rots;//new ArrayList<>(rotats.values());
 	}
+
 }

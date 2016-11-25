@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-//this class contains the board and converts it in a EMC problem.
+//this class contains the board and converts a "Pavage" into an EMC problem.
 public class board extends polyominoElement{
 	int emcColumns;
 	
@@ -49,7 +49,7 @@ public class board extends polyominoElement{
 		
 		return line;
 		}
-		else return null; // or throw exception TODO
+		else return null;
 	}
 	
 	private int[] holeLine(){
@@ -94,12 +94,10 @@ public class board extends polyominoElement{
 	}
 	
 	public int[][] emcToData(int[][] m){
-		//TODO essa funcao ta tipo um rascunho. pode implementar ela melhor.
-		// a ideia eh converter a cada linha da saida do pavagem em (i,j,id) isto eh, 
-		//posicao + qual peca eh
-		// pode mudar o nome dela se quiser
+		//NOT USED
+		// Reconverts a matrix in the EMC format to its equivalent triple (line,column,Id) 
 		int [][] r = new int[m.length][3];
-		for(int i = 0; i < m.length; i++)//TODO esse m.length pode dar bug!
+		for(int i = 0; i < m.length; i++)
 		{
 			int iPiece = lines;
 			int jPiece = columns;
